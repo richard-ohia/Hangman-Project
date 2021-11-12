@@ -16,7 +16,7 @@ def play(index, user_input):
     if(user_input in guessed_letters):
         print("\nYou guessed this letter already. Try again!")
         label1 = Label(window, text=" ".join(ingame_word), fg="#371BB1",font=("Arial",20))
-        label1.place(relx=.5,rely=.9,x=900/2 - 250,anchor=CENTER)
+        label1.place(relx=.6,rely=.5,x=900/2 - 250,anchor=CENTER)
     elif(user_input in word_list and len(user_input) == 1):
         print("\nNice " + '"' + user_input + '"' + " is part of the word.")
         guessed_letters.add(user_input)
@@ -29,14 +29,14 @@ def play(index, user_input):
         else:
             print(display(lives))
             label1 = Label(window, text=" ".join(ingame_word), fg="#371BB1",font=("Arial",20))
-            label1.place(relx=.5,rely=.9,x=900/2 - 250,anchor=CENTER)
+            label1.place(relx=.6,rely=.5,x=900/2 - 250,anchor=CENTER)
     elif(user_input not in word_list and len(user_input) == 1):
         print('\n"' + user_input + '"' + " is not part of the word.")
         guessed_letters.add(user_input)
         lives -= 1
         print(display(lives))
         label1 = Label(window, text=" ".join(ingame_word), fg="#371BB1",font=("Arial",20))
-        label1.place(relx=.5,rely=.9,x=900/2 - 250,anchor=CENTER)
+        label1.place(relx=.6,rely=.5,x=900/2 - 250,anchor=CENTER)
         print("\nYou have " + str(lives) + " lives.")
     else:
         print("\nPlease input one letter. Try again!")
@@ -123,13 +123,15 @@ def display(lives):
 def main():
     window.title("Hangman")
     window.geometry("900x700") #widthxheight
+    header = Label(window, text="Hangman", fg="#371BB1",font=("Arial",20))
+    header.place(relx=.6,rely=.1,anchor=CENTER)
     photo_image = PhotoImage(file="hangman0.png")
-    larger_image = photo_image.zoom(2, 2)
+    larger_image = photo_image.zoom(1, 1)
     label2 = Label(window, image=larger_image)
     label2.place(relx=.5,rely=.7,anchor=S)
    
     canvas = Canvas(window)
-    canvas.place(relx=.37,rely=.9,anchor=S)
+    canvas.place(relx=.42,rely=.9,anchor=S)
     for i in range(65,91):
         n = chr(i)
         if i < 72:
