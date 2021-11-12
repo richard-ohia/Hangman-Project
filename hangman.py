@@ -138,7 +138,7 @@ def main():
             n_button.grid(padx=2,pady=2,row=i//9, column=i%9)
         buttons.append(n_button)
     
-    photo_image = PhotoImage(file="C:/Users/Rich/Desktop/Folder/hangman0.png")
+    photo_image = PhotoImage(file="hangman0.png")
     larger_image = photo_image.zoom(2, 2)
     label2 = Label(window, image=larger_image)
     label2.pack(fill="both",expand="yes")

@@ -5,7 +5,7 @@ import random
 
 def get_word_list():
     words = []
-    with open("C:/Users/Rich/Desktop/Folder/words.txt") as word_file:
+    with open("words.txt") as word_file:
         for line in word_file:
             if (len(line) > 4):
                 words.append(line.strip())
