@@ -1,5 +1,6 @@
 import words
 from tkinter import *
+from PIL import Image, ImageTk
 
 window = Tk()
 word_list = list(words.game_word())
@@ -125,13 +126,14 @@ def main():
     window.geometry("900x700") #widthxheight
     header = Label(window, text="Hangman", fg="#371BB1",font=("Arial",20))
     header.place(relx=.6,rely=.1,anchor=CENTER)
+    
     photo_image = PhotoImage(file="hangman0.png")
-    larger_image = photo_image.zoom(1, 1)
+    larger_image = photo_image.zoom(2, 2)
     label2 = Label(window, image=larger_image)
-    label2.place(relx=.5,rely=.7,anchor=S)
+    label2.place(relx=.5,rely=.8,anchor=S)
    
     canvas = Canvas(window)
-    canvas.place(relx=.42,rely=.9,anchor=S)
+    canvas.place(relx=.42,rely=.97,anchor=S)
     for i in range(65,91):
         n = chr(i)
         if i < 72:
