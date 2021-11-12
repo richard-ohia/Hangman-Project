@@ -129,7 +129,7 @@ def main():
     label2.place(relx=.5,rely=.7,anchor=S)
    
     canvas = Canvas(window)
-    canvas.place(relx=.35,rely=.9,anchor=S)
+    canvas.place(relx=.37,rely=.9,anchor=S)
     for i in range(65,91):
         n = chr(i)
         if i < 72:
