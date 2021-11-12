@@ -123,27 +123,29 @@ def display(lives):
 def main():
     window.title("Hangman")
     window.geometry("900x700") #widthxheight
+    photo_image = PhotoImage(file="hangman0.png")
+    larger_image = photo_image.zoom(2, 2)
+    label2 = Label(window, image=larger_image)
+    label2.place(relx=.5,rely=.7,anchor=S)
+   
     canvas = Canvas(window)
-    canvas.pack(pady=80,side= LEFT)
+    canvas.place(relx=.35,rely=.9,anchor=S)
     for i in range(65,91):
         n = chr(i)
         if i < 72:
             n_button = Button(canvas, fg="Black", text=n, width = 4, height = 1,command= lambda i=i, n=n: play(i, n))
-            n_button.grid(padx=2,pady=2,row=i//9, column=i%9 - 1)   
+            n_button.grid(pady=2,row=i//9, column=i%9 - 1)  
         elif i == 90:
             n_button = Button(canvas, fg="Black", text=n, width = 4, height = 1,command= lambda i=i, n=n: play(i, n))
-            n_button.grid(padx=2,pady=2,row=i//9, column=4)
+            n_button.grid(pady=2,row=i//9, column=4)
         else:
             n_button = Button(canvas, fg="Black", text=n, width = 4, height = 1,command= lambda i=i, n=n: play(i, n))
-            n_button.grid(padx=2,pady=2,row=i//9, column=i%9)
+            n_button.grid(pady=2,row=i//9, column=i%9)
         buttons.append(n_button)
-    
-    photo_image = PhotoImage(file="hangman0.png")
-    larger_image = photo_image.zoom(2, 2)
-    label2 = Label(window, image=larger_image)
-    label2.pack(fill="both",expand="yes")
+   
+
     label1 = Label(window, text=" ".join(ingame_word), fg="#371BB1",font=("Arial",20))
-    label1.place(relx=.5,rely=.9,x=900/2 - 250,anchor=CENTER)
+    label1.place(relx=.6,rely=.5,x=900/2 - 250,anchor=CENTER)
     window.mainloop()
 
 
