@@ -1,3 +1,4 @@
+from tkinter.font import ITALIC
 import words
 from tkinter import *
 
@@ -123,8 +124,8 @@ def display(lives):
 def main():
     window.title("Hangman")
     window.geometry("900x700") #widthxheight
-    header = Label(window, text="Hangman", fg="#371BB1",font=("Arial",20))
-    header.place(relx=.6,rely=.1,anchor=CENTER)
+    header = Label(window, text="H_NGM_N", fg="#371BB1",font=("Helvetica",60,ITALIC))
+    header.place(relx=.45,rely=.1,anchor=CENTER)
     
     photo_image = PhotoImage(file="hangman0.png")
     larger_image = photo_image.zoom(2, 2)
@@ -137,7 +138,7 @@ def main():
         n = chr(i)
         if i < 72:
             n_button = Button(canvas, fg="Black", text=n, width = 4, height = 1,command= lambda i=i, n=n: play(i, n))
-            n_button.grid(padx=2,pady=2,row=i//9, column=i%9 - 1)  
+            n_button.grid(padx=2,pady=2,row=i//9, column=i%9 - 1,)  
         elif i == 90:
             n_button = Button(canvas, fg="Black", text=n, width = 4, height = 1,command= lambda i=i, n=n: play(i, n))
             n_button.grid(padx=2,pady=2,row=i//9, column=4)
