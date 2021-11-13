@@ -1,6 +1,5 @@
 import words
 from tkinter import *
-from PIL import Image, ImageTk
 
 window = Tk()
 word_list = list(words.game_word())
@@ -138,13 +137,13 @@ def main():
         n = chr(i)
         if i < 72:
             n_button = Button(canvas, fg="Black", text=n, width = 4, height = 1,command= lambda i=i, n=n: play(i, n))
-            n_button.grid(pady=2,row=i//9, column=i%9 - 1)  
+            n_button.grid(padx=2,pady=2,row=i//9, column=i%9 - 1)  
         elif i == 90:
             n_button = Button(canvas, fg="Black", text=n, width = 4, height = 1,command= lambda i=i, n=n: play(i, n))
-            n_button.grid(pady=2,row=i//9, column=4)
+            n_button.grid(padx=2,pady=2,row=i//9, column=4)
         else:
             n_button = Button(canvas, fg="Black", text=n, width = 4, height = 1,command= lambda i=i, n=n: play(i, n))
-            n_button.grid(pady=2,row=i//9, column=i%9)
+            n_button.grid(padx=2,pady=2,row=i//9, column=i%9)
         buttons.append(n_button)
    
 
