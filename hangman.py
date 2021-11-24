@@ -16,7 +16,7 @@ def play(index, user_input):
     print(ingame_word)
     if(user_input in guessed_letters):
         print("\nYou guessed this letter already. Try again!")
-        label1 = Label(window, text=" ".join(ingame_word), fg="#C1436D",font=("Arial",20))
+        label1 = Label(window, text=" ".join(ingame_word), bg="#323231",fg="#C1436D",font=("Arial",20))
         label1.place(relx=.6,rely=.5,x=900/2 - 250,anchor=CENTER)
     elif(user_input in word_list and len(user_input) == 1):
         print("\nNice " + '"' + user_input + '"' + " is part of the word.")
@@ -29,14 +29,14 @@ def play(index, user_input):
             print("\nYou Won! The word was " + "".join(ingame_word) + ".")
         else:
             print(display(lives))
-            label1 = Label(window, text=" ".join(ingame_word), fg="#C1436D",font=("Arial",20))
+            label1 = Label(window, text=" ".join(ingame_word), bg="#323231",fg="#C1436D",font=("Arial",20))
             label1.place(relx=.6,rely=.5,x=900/2 - 250,anchor=CENTER)
     elif(user_input not in word_list and len(user_input) == 1):
         print('\n"' + user_input + '"' + " is not part of the word.")
         guessed_letters.add(user_input)
         lives -= 1
         print(display(lives))
-        label1 = Label(window, text=" ".join(ingame_word), fg="#C1436D",font=("Arial",20))
+        label1 = Label(window, text=" ".join(ingame_word), bg="#323231",fg="#C1436D",font=("Arial",20))
         label1.place(relx=.6,rely=.5,x=900/2 - 250,anchor=CENTER)
         print("\nYou have " + str(lives) + " lives.")
     else:
@@ -125,7 +125,7 @@ def main():
     window.title("Hangman")
     window.geometry("900x700") #widthxheight
     window.config(bg="#323231")
-    header = Label(window, text="H_NGM_N", bg="#323231",fg="#C1436D",font=("Helvetica",70,ITALIC))
+    header = Label(window, text="H_NGM_N", bg="#323231", fg="#C1436D", font=("Helvetica",70,ITALIC))
     header.place(relx=.46,rely=.1,anchor=CENTER)
     
     photo_image = PhotoImage(file="hangman0.png")
@@ -133,11 +133,11 @@ def main():
     label2 = Label(window, bg="#323231",image=larger_image)
     label2.place(relx=.5,rely=.8,anchor=S)
    
-    canvas = Canvas(window, bg="#323231")
+    canvas = Canvas(window, bg="#323231", highlightthickness=0)
     canvas.place(relx=.42,rely=.97,anchor=S)
     for i in range(65,91):
         n = chr(i)
-        n_button = Button(canvas, bg="#a3a2a3",fg="Black", text=n,width = 4, height = 1,command= lambda i=i, n=n: play(i, n))
+        n_button = Button(canvas, text=n, fg="Black", highlightbackground="#323231", width=4, height=1, command= lambda i=i, n=n: play(i, n))
         if i < 72:
             n_button.grid(padx=2,pady=2,row=i//9, column=i%9 - 1,)  
         elif i == 90:
