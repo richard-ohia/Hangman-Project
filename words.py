@@ -13,5 +13,5 @@ def get_word_list(choice):
 
 def game_word(choice):
     word_list = get_word_list(choice)
-    rand = random.randrange(len(word_list) + 1)
+    rand = random.randrange(len(word_list))
     return word_list[rand].upper()

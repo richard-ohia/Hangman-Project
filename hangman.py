@@ -8,7 +8,7 @@ class Hangman:
         self.window = Tk()
         pygame.mixer.init()
         self.word_list = list()
-        self.ingame_word = list("_" * len(self.word_list))
+        self.ingame_word = list()
         self.checkSpace()
         self.buttons = []
         self.lives = 6 #This is for each body part of the hangman
@@ -18,6 +18,10 @@ class Hangman:
         self.canvas = Canvas()
         self.label1 = Label()
         self.label2 = Label()
+        self.button = Button()
+        self.button2 = Button()
+        self.button3 = Button()
+        self.button4 = Button()
         
         self.window.title("Hangman")
         self.window.geometry("900x700") #widthxheight
@@ -35,23 +39,43 @@ class Hangman:
                 self.ingame_word[index] = "'"
             index += 1
 
+
     def gameWord(self, choice):
-        if choice == "Random Word":
+        if choice == "Random Words":
             self.word_list = list(words.game_word("words.txt"))
-        elif choice == "Cities":
+        elif choice == "US Largest Cities":
             self.word_list = list(words.game_word("cities.txt"))
         elif choice == "Countries":
             self.word_list = list(words.game_word("countries.txt"))
-        elif choice == "States":
+        elif choice == "US States":
             self.word_list = list(words.game_word("states.txt"))
+        self.ingame_word = list("_" * len(self.word_list))
 
+        self.gameWindow()
 
-        
+        try:
+            self.display(self.lives)
+            self.music_button = Button(self.window, text = "Play Music", fg="Black", highlightbackground="#323231", highlightthickness=0, width=5, height=1, command= lambda : self.playMusic())
+            self.music_button.place(relx=.2,rely=.5,anchor=S)
+
+            self.canvas = Canvas(self.window, bg="#323231", highlightthickness=0)
+            self.canvas.place(relx=.42,rely=.97,anchor=S)
+            for i in range(65,91):
+                n = chr(i)
+                n_button = Button(self.canvas, text=n, fg="Black", highlightbackground="#323231", width=4, height=1, command= lambda i=i, n=n: self.play(i - 65, n))
+                if i < 72:
+                    n_button.grid(padx=2,pady=2,row=i//9, column=i%9 - 1,)  
+                elif i == 90:
+                    n_button.grid(padx=2,pady=2,row=i//9, column=4)
+                else:
+                    n_button.grid(padx=2,pady=2,row=i//9, column=i%9)
+                self.buttons.append(n_button)
+        except:
+            pass
+
 
     def play(self,index, user_input):
-        self.disable(index, user_input)
-        print(self.word_list)
-        print(self.ingame_word)
+        self.disable(index)
         if(user_input in self.word_list and len(user_input) == 1):
             count = 0
             for i in self.word_list:
@@ -70,12 +94,14 @@ class Hangman:
             self.gameWon(False)
 
 
-    def disable(self,index, n):
+    def disable(self,index):
         self.buttons[index].config(state="disabled")
+
 
     def trueAnswer(self):
         self.label1 = Label(self.window, text=" ".join(self.word_list), bg="#323231",fg="#C1436D",font=("Arial",20))
         self.label1.place(relx=.65,rely=.5,x=900/2 - 250,anchor=CENTER)
+
 
     def gameWon(self, gameFinished):
         self.canvas.destroy()
@@ -94,6 +120,7 @@ class Hangman:
         button.pack()
         button2.pack()
 
+
     def restart(self):
         if self.musicOn == True:
             self.stopMusic()
@@ -101,9 +128,11 @@ class Hangman:
         game = Hangman()
         game.main()
 
-    def endGame(self):
-        self.window.destroy()
 
+    def endGame(self):
+        if self.musicOn == True:
+            self.stopMusic()
+        self.window.destroy()
 
 
     def playMusic(self):
@@ -116,6 +145,7 @@ class Hangman:
 
         self.music_button = Button(self.window, text = "Stop Music", fg="Black", highlightbackground="#323231", highlightthickness=0, width=5, height=1, command= lambda : self.stopMusic())
         self.music_button.place(relx=.2,rely=.5,anchor=S)
+
 
     def stopMusic(self):
         self.music_button.destroy()
@@ -130,6 +160,7 @@ class Hangman:
         stages = ["hangman6.png", "hangman5.png", "hangman4.png", "hangman3.png",
         "hangman2.png", "hangman1.png", "hangman0.png"]
         
+        self.label1.destroy()
         self.label1 = Label(self.window, text=" ".join(self.ingame_word), bg="#323231",fg="#C1436D",font=("Arial",20))
         self.label1.place(relx=.65,rely=.5,x=900/2 - 250,anchor=CENTER)
         
@@ -138,28 +169,15 @@ class Hangman:
         self.label2.place(relx=.5,rely=.78,anchor=S)
 
 
-    def gameChoice(self):
-        self.canvas = Canvas(self.window, bg="#323231", highlightthickness=0)
-        self.canvas.place(relx=.45,rely=.6,anchor=S)
-        label = Label(self.canvas, text="Pick a theme", bg="#323231",fg="#C1436D",font=("Arial",35))
-        label.place(relx=.2,rely=.2)
-
-        button = Button(self.canvas, text = "Random Words", fg="Black", highlightbackground="#323231", highlightthickness=0, width=10, height=2, command= lambda : self.restart())
-        button.place(relx=.58,rely=.5)
-        button2 = Button(self.canvas, text = "US States", fg="Black", highlightbackground="#323231", highlightthickness=0, width=10, height=2, command= lambda : self.restart())
-        button2.place(relx=.58,rely=.7)
-        button4 = Button(self.canvas, text = "US Largest Cities", fg="Black", highlightbackground="#323231", highlightthickness=0, width=10, height=2, command= lambda : self.restart())
-        button4.place(relx=.1,rely=.5)
-        button5 = Button(self.canvas, text = "Countries", fg="Black", highlightbackground="#323231", highlightthickness=0, width=10, height=2, command= lambda : self.restart())
-        button5.place(relx=.1,rely=.7)
-
-    def main(self):
-        self.gameChoice()
+    def gameWindow(self):
+        self.canvas.destroy()
+        self.label2.destroy()
+        self.button.destroy()
+        self.button2.destroy()
+        self.button3.destroy()
+        self.button4.destroy()
         self.display(self.lives)
-        
-        self.music_button = Button(self.window, text = "Play Music", fg="Black", highlightbackground="#323231", highlightthickness=0, width=5, height=1, command= lambda : self.playMusic())
-        self.music_button.place(relx=.2,rely=.5,anchor=S)
-   
+
         self.canvas = Canvas(self.window, bg="#323231", highlightthickness=0)
         self.canvas.place(relx=.42,rely=.97,anchor=S)
         for i in range(65,91):
@@ -172,9 +190,32 @@ class Hangman:
             else:
                 n_button.grid(padx=2,pady=2,row=i//9, column=i%9)
             self.buttons.append(n_button)
-   
         self.window.mainloop()
 
+
+    def gameChoice(self):
+        self.music_button = Button(self.window, text = "Play Music", fg="Black", highlightbackground="#323231", highlightthickness=0, width=5, height=1, command= lambda : self.playMusic())
+        self.music_button.place(relx=.2,rely=.5,anchor=S)
+        
+        self.canvas = Canvas(self.window, bg="#323231", highlightthickness=0)
+        self.canvas.place(relx=.45,rely=.6,anchor=S)
+        
+        self.label2 = Label(self.canvas, text="Pick a theme", bg="#323231",fg="#C1436D",font=("Arial",35))
+        self.label2.place(relx=.2,rely=.2)
+
+        self.button = Button(self.canvas, text = "Random Words", fg="Black", highlightbackground="#323231", highlightthickness=0, width=10, height=2, command= lambda : self.gameWord("Random Words"))
+        self.button.place(relx=.58,rely=.5)
+        self.button2 = Button(self.canvas, text = "US States", fg="Black", highlightbackground="#323231", highlightthickness=0, width=10, height=2, command= lambda : self.gameWord("US States"))
+        self.button2.place(relx=.58,rely=.7)
+        self.button4 = Button(self.canvas, text = "US Largest Cities", fg="Black", highlightbackground="#323231", highlightthickness=0, width=10, height=2, command= lambda : self.gameWord("US Largest Cities"))
+        self.button4.place(relx=.1,rely=.5)
+        self.button3 = Button(self.canvas, text = "Countries", fg="Black", highlightbackground="#323231", highlightthickness=0, width=10, height=2, command= lambda : self.gameWord("Countries"))
+        self.button3.place(relx=.1,rely=.7)
+
+
+    def main(self): 
+        self.gameChoice()
+        self.window.mainloop()
 
 
 game = Hangman()
