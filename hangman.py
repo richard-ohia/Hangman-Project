@@ -56,13 +56,13 @@ class Hangman:
     """
     def gameWord(self, choice):
         if choice == "Random Words":
-            self.word_list = list(words.game_word("words.txt"))
+            self.word_list = list(words.game_word("gamewords/words.txt"))
         elif choice == "US Largest Cities":
-            self.word_list = list(words.game_word("cities.txt"))
+            self.word_list = list(words.game_word("gamewords/cities.txt"))
         elif choice == "Countries":
-            self.word_list = list(words.game_word("countries.txt"))
+            self.word_list = list(words.game_word("gamewords/countries.txt"))
         elif choice == "US States":
-            self.word_list = list(words.game_word("states.txt"))
+            self.word_list = list(words.game_word("gamewords/states.txt"))
         self.ingame_word = list("_" * len(self.word_list))
         self.checkSpace()
         self.gameWindow()
@@ -147,7 +147,7 @@ class Hangman:
     Deletes the play music button and replaces it with the stop music button.
     """
     def playMusic(self):
-        songs = ["chillday.mp3", "betterdays.mp3", "blushes.mp3" ,"dream.mp3"]
+        songs = ["songs/chillday.mp3", "songs/betterdays.mp3", "songs/blushes.mp3" ,"songs/dream.mp3"]
         rand = randrange(4)
         self.music_button.destroy()
         pygame.mixer.music.load(songs[rand])
@@ -174,8 +174,8 @@ class Hangman:
     Updates the image of the hangman and its current life status.
     """
     def display(self,lives):
-        stages = ["hangman6.png", "hangman5.png", "hangman4.png", "hangman3.png",
-        "hangman2.png", "hangman1.png", "hangman0.png"]
+        stages = ["images/hangman6.png", "images/hangman5.png", "images/hangman4.png", "images/hangman3.png",
+        "images/hangman2.png", "images/hangman1.png", "images/hangman0.png"]
         
         self.label1.destroy()
         self.label1 = Label(self.window, text=" ".join(self.ingame_word), bg="#323231",fg="#C1436D",font=("Arial",20))
